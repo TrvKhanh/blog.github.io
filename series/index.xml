@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Series on I&#39;m Khanh, Hello World !!</title>
+    <link>https://khanhblog.id.vn/series/</link>
+    <description>Recent content in Series on I&#39;m Khanh, Hello World !!</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>&lt;a href=&#34;https://khanhblog.id.vn/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Khanh&lt;/a&gt;</copyright>
+    <atom:link href="https://khanhblog.id.vn/series/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
