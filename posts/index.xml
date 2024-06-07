@@ -1,0 +1,162 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Posts on I&#39;m Khanh, Hello World !!</title>
+        <link>https://khanhblog.id.vn/posts/</link>
+        <description>Recent content in Posts on I&#39;m Khanh, Hello World !!</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>&lt;a href=&#34;https://khanhblog.id.vn/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Khanh&lt;/a&gt;</copyright>
+        <lastBuildDate>Wed, 06 Mar 2024 00:20:23 +0700</lastBuildDate>
+        <atom:link href="https://khanhblog.id.vn/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Linear Regression</title>
+            <link>https://khanhblog.id.vn/posts/2024/03/linear-regression/</link>
+            <pubDate>Wed, 06 Mar 2024 00:20:23 +0700</pubDate>
+            
+            <guid>https://khanhblog.id.vn/posts/2024/03/linear-regression/</guid>
+            <description>Linear Regression ( hồi quy tuyến tính )là một thuật toán cơ bản nhất của Machine Learning.Đây là một thuật toán Supervised learning ( Học có giám sát ) đầu ra là một hàm số tuyến tính của đầu vào.
+1. Giới Thiệu 1.1 What is Linear Regression? Ví Dụ: Chúng ta cần tính giá tiền của 1 căn nhà rộng \(x_1 ~ \text{m}^2\), có \(x_2\) phòng ngủ cách trung tâm thành phố \(x_3~\text{km}\).</description>
+            <content type="html"><![CDATA[<!-- raw HTML omitted -->
+<p>Linear Regression ( hồi quy tuyến tính )là một thuật toán cơ bản nhất của Machine Learning.Đây là một thuật toán Supervised learning ( Học có giám sát )  đầu ra là một hàm số tuyến tính của đầu vào.</p>
+<h2 id="1-giới-thiệu">1. Giới Thiệu</h2>
+<h3 id="11-what-is-linear-regression">1.1 What is Linear Regression?</h3>
+<p>Ví Dụ: Chúng ta cần tính giá tiền của 1 căn nhà rộng  \(x_1 ~ \text{m}^2\), có \(x_2\) phòng ngủ cách trung tâm
+thành phố \(x_3~\text{km}\). Giả sử  chúng ta đã có số liệu thông kê từ 1000 căn  nhà trong thành phố đó , liệu rằng
+khi chúng ta có một căn nhà mới với các thông số về diện tích, số phòng ngủ và khoảng cách tới trung tâm, chúng ta có thể dự đoán được giá của căn nhà đó không? Nếu có thì hàm dự đoán \(y = f(x)\) sẽ có dạng như thế nào?
+Ở đây \(X = [x_1, x_2,x_3]\) là 1 vector hàng chứa các đặc trưng (features) đầu vào (input), \(y\) là 1 số vô hướng (scalar) biểu diễn giá trị đầu ra (output) trong ví dụ này chính là giá nhà cần tính</p>
+<p>Chúng ta nhận ra rằng :</p>
+<p>i) diện tích nhà càng lớn thì giá nhà càng cao</p>
+<p>ii) số lượng phòng ngủ càng lớn thì giá nhà càng cao</p>
+<p>iii) càng xa trung tâm thì giá nhà càng giảm</p>
+<p>Hàm số dưới đây có thể mô tả mối quan hệ giứa giá nhà với 3 đại lượng đầu vào: $$y \approx  f(\mathbf{x}) = \hat{y} $$
+$$f(x) = w_1x_1 + w_2x_2 + w_3x_3 + w_0 ~~~~(1)$$
+Trong đó \(w_1, w_2, w_3\) là các trọng số (Weight), \(w_0\) là Bias.Mối quan hệ \(y \approx f(\mathbf{x})\)
+là một mối quan hệ tuyến tính (linear). Bài toán chúng ta đang làm là một bài toán thuộc loại regression. Bài toán đi tìm các trọng số tối ưu \(w_1, w_2, w_3\).
+chính vì vậy được gọi là bài toán Linear Regression. (Từ tuyến tính ở đây có thể được hiểu là thẳng, phẳng).</p>
+<p>Khi  \(X\) là vector 2 chiều thì hàm số \(\hat{y} = f(\mathbf{x})\) có đồ thị(graph) là <em><strong>đường thẳng</strong></em>,  với \(X\) là vector 3 chiều thì hàm số \(\hat{y} = f(\mathbf{x})\) có đồ thị (graph) là <em><strong>mặt phẳng</strong></em>, với chiều của \(X\) lớn hơn 3 thì đồ thị của nó là một <em><strong>siêu mặt phẳng</strong></em>.</p>
+<p>Chú ý: y là giá trị thực của kết quả (outcome) (dựa trên số liệu thống kê chúng ta có trong tập training data), trong khi \(\hat{y}\)
+là giá trị mà mô hình Linear Regression dự đoán được. Hai giá trị này hoàn toàn khác nhau và chúng ta mong muốn rằng sự khác nhau này rất nhỏ.</p>
+<h2 id="2-phân-tích-toán-học">2 Phân tích toán học</h2>
+<p>Trong phương trình \((1)\) phía trên nếu chung ta đặt <em><strong>w</strong></em>\( = [w_1, w_2, w_3]^T\) là 1 <em><strong>vector cột</strong></em> chứa các trọng số cần tối ưu.
+\(\mathbf{\bar{x}} = [1, x_1, x_2, x_3]\) là 1 <em><strong>vector hàng</strong></em> dữ liệu đầu vào mở rộng. Số
+1
+ở đầu được thêm vào để phép tính đơn giản hơn và thuận tiện cho việc tính toán. Khi đó, phương trình (1) có thể được viết lại dưới dạng:$$y \approx \mathbf{\bar{x}}w = \hat{y}$$</p>
+<h3 id="21-sai-số-dự-đoánpridict-error">2.1 Sai số dự đoán(Pridict error)</h3>
+<p>Chúng ta mong muốn tìm ra hàm số \(\hat{y}\) sao cho sai số \(e\) có giá trị tuyệt đối là nhỏ nhất đồng nghĩa với giá trị sau đây càng nhỏ càng tốt: $$\frac{1}{2} e^2 = \frac{1}{2} (y - \hat{y} )^2 = \frac{1}{2} (y - \mathbf{\bar{x}}w)^2$$</p>
+<p>trong đó việc lấy \(\frac{1}{2}\) là để thuận tiện khi lấy đạo hàm. Chúng ta cần \((e^2)\) vì \( e = y - \hat{y}\) có thể âm .Ở đây chúng ta không lấy giá trị tuyệt đối vì hàm \(|e|\) không khả vi tại gốc tọa độ (không thuận tiện cho việc tối ưu).</p>
+<h3 id="22-hàm-mất-mát-lost-function">2.2 Hàm mất mát (Lost Function)</h3>
+<p>Điều tương tự xảy ra với tất cả các cặp dữ liệu (\(x_i, y_i, i = 1,2,&hellip;,N\)) với N là số lượng dữ liệu trong tập traing data .Việc tìm mô hình tốt nhất tương đương với việc tìm <em><strong>w</strong></em> để hàm số sau đạt giá trị nhỏ nhất:
+$$\mathcal{L}(\mathbf{w}) = \frac{1}{2}\sum_{i=1}^N (y_i - \mathbf{\bar{x}}w)^2~~~(2)$$
+Hàm số \(\mathcal{L}\) được gọi là <em><strong>hàm mất mát</strong></em>(loss function) giá trị của <em><strong>w</strong></em> làm cho \(\mathcal{L}\) đạt giá trị nhỏ nhất được gọi là điểm tối ưu (optimal point) kí hiệu : $$\mathbf{w}^* = \arg\min_{\mathbf{w}} \mathcal{L}(\mathbf{w})$$</p>
+<p>Đặt \(\mathbf{y} =
+\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{bmatrix}\) là 1 vecter cột chứa tất cả các output của training data,\(\mathbf{\bar{X}} =
+\begin{bmatrix}
+\mathbf{\bar{x}}_1 \\
+\mathbf{\bar{x}}_2 \\
+\vdots \\
+\mathbf{\bar{x}}_n
+\end{bmatrix}\) là một ma trận mở rộng mà mỗi hàng của nó là một điểm dữ liệu
+. Khi đó hàm số mất mát \(\mathcal{L}\) được viết dưới dạng ma trận đơn giản hơn:
+$$\mathcal{L}(\mathbf{w}) = \frac{1}{2}\sum_1^N (y_i - \mathbf{\bar{x}}_i\mathbf{w})^2 $$
+$$= \frac{1}{2} |\mathbf{y} - \mathbf{\bar{X}}\mathbf{w} |_2^2$$
+$$= \frac{1}{2} |
+\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{bmatrix} -
+\begin{bmatrix}
+\mathbf{\bar{x}}_1 \\
+\mathbf{\bar{x}}_2 \\
+\vdots \\
+\mathbf{\bar{x}}_n
+\end{bmatrix}\mathbf{w}
+|_2^2
+$$
+với \(| \mathbf{x} |_2\) là Euclidean norm (chuẩn Euclid, hay khoảng cách Euclid), nói cách khác \(| \mathbf{x} |_2^2\) là tổng của bình phương mỗi phần tử của vector \(\mathbf{x}\) .</p>
+<p>Ví dụ \(\mathbf{x} = [x_1, x_2, \cdots,  x_n] \implies | \mathbf{x} |_2 = \sqrt{x_1^2 + x_2^2 + \dots + x_n^2}\).</p>
+<h3 id="23-nghiệm-cho-bài-toán-linear-regression">2.3 Nghiệm cho bài toán Linear Regression</h3>
+<p>Hàm mất mát \(\mathcal{L}\) có gradient tại mọi \(\mathcal{w}\). Giá trị \(\mathcal{w}\) cần tối ưu chính là nghiệm của phương trình đạo hàm
+\(\mathcal{L(w)}\) bằng không. $$\frac{\partial{\mathcal{L}(\mathbf{w})}}{\partial{\mathbf{w}}}
+= \mathbf{\bar{X}}^T (\mathbf{\bar{X}}\mathbf{w} - \mathbf{y}) = 0$$
+\(\implies \mathbf{\bar{X}}^T \mathbf{\bar{X}}\mathbf{w} = \mathbf{\bar{X}}^T \mathbf{y} \triangleq \mathbf{b}\).
+Nếu ma trận \(\mathbf{A} \triangleq \mathbf{\bar{X}}^T \mathbf{\bar{X}}\) khả nghịch thì phương trình có nghiệm duy nhất \(\mathbf{w} = \mathbf{\bar{X}}^T \mathbf{\bar{X}}^{-1}(\mathbf{\bar{X}}^T\mathbf{y}) \triangleq \mathbf{A}^{-1}\mathbf{b}\).Với ma trận \(\mathbf{A}\) không khả nghịch thì phương trình vô nghiệm hoặc có vô số nghiệm lúc này chúng ta sử dụng khái niệm <em><strong>giả nghịch đảo</strong></em> \(\mathbf{A}^{\dagger}\) (đọc là A dagger trong tiếng Anh). (Giả nghịch đảo (pseudo inverse) là trường hợp tổng quát của nghịch đảo khi ma trận không khả nghịch hoặc thậm chí không vuông) lúc này điểm tối ưu có dạng: $$\mathbf{w} = (\mathbf{\bar{X}}^T \mathbf{\bar{X}})^{\dagger}\mathbf{\bar{X}}^T\mathbf{y}$$</p>
+<h2 id="3-coding-with-python">3. Coding with python</h2>
+<p>Sử dụng bộ dataset <a href="https://drive.google.com/file/d/1tZLu8-uwuX7lWhhQwE5oJhtA0LXkjk3x/view?usp=sharing">train.csv</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>    <span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74">&#34;train.csv&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">### *Hiển thị dữ liệu</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> df[<span style="color:#e6db74">&#39;x&#39;</span>]<span style="color:#f92672">.</span>to_numpy()
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> df[<span style="color:#e6db74">&#39;y&#39;</span>]<span style="color:#f92672">.</span>to_numpy()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>scatter(x, y, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;o&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>show()   
+</span></span></code></pre></div><p><img alt="Liner Regression" src="/images/image.png"></p>
+<p>Từ đồ thị này ta thấy rằng dữ liệu được sắp xếp gần như theo 1 đường thẳng, vậy mô hình Linear Regression nhiều khả năng sẽ cho kết quả tốt</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>    <span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LinearRegression</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>weight <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>bias <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fit</span>(self, x, y):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        one <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>ones((x<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>], <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>        X_bar <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>concatenate((one, x<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)), axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        A <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dot(X_bar<span style="color:#f92672">.</span>T, X_bar)
+</span></span><span style="display:flex;"><span>        b <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dot(X_bar<span style="color:#f92672">.</span>T, y)
+</span></span><span style="display:flex;"><span>        w <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dot(np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>pinv(A), b)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>bias <span style="color:#f92672">=</span> w[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>weight <span style="color:#f92672">=</span> w[<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">predict</span>(self, feature):
+</span></span><span style="display:flex;"><span>       y_pred <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>weight <span style="color:#f92672">*</span> feature <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>bias
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">return</span> y_pred
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        model <span style="color:#f92672">=</span> LinearRegression()
+</span></span><span style="display:flex;"><span>        model<span style="color:#f92672">.</span>fit(x, y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;weight:&#34;</span>, model<span style="color:#f92672">.</span>weight)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Bias:&#34;</span>, model<span style="color:#f92672">.</span>bias)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        x_0 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        y_0 <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>bias <span style="color:#f92672">+</span> model<span style="color:#f92672">.</span>weight <span style="color:#f92672">*</span> x_0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">### Hiển thị đường dự đoán và so sánh với điểm dự đoán bất kì.</span>
+</span></span><span style="display:flex;"><span>        y_pred <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>predict(<span style="color:#ae81ff">145</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">### Dự đoán với x = 145 liệu mô hình có hoạt động tốt?</span>
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>plot(x_0, y_0, <span style="color:#e6db74">&#39;r-&#39;</span>)
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>scatter(x, y, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;o&#39;</span>)
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>plot(<span style="color:#ae81ff">145</span>, y_pred, <span style="color:#e6db74">&#39;r-&#39;</span>)
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;X&#39;</span>)
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;y&#39;</span>)
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img alt="Liner Regression" src="/images/image.png"></p>
+<p>Từ đồ thị bên trên ta thấy rằng các điểm dữ liệu màu xanh nằm khá gần đường thẳng dự đoán màu đỏ. Vậy mô hình Linear Regression hoạt động tốt với tập dữ liệu training.</p>
+<h2 id="4-thảo-luận">4. Thảo luận</h2>
+<p>Trên thực tế, một vector đặc trưng có thể có kích thước rất lớn, dẫn đến tìm nghịch đảo ma trận \(\mathbf{X}\mathbf{X}^{T}\) rất tốn thời gian và bộ nhớ. Chúng ta có thể dùng Gradiant Descent để tìm trọng số tối ưu giúp tránh được việc tính ma trận nghịch đảo.
+Hoặc chúng ta có thể dùng <em><strong>hồi quy ridge</strong></em> và khái niệm <em><strong>ma trận xác định dương</strong></em></p>
+<p>Ngoài ra Linear Regression rất <em><strong>nhạy cảm với nhiễu</strong></em>(sensitive to noise).
+Vì vậy, trước khi thực hiện Linear Regression, các nhiễu (outlier) cần phải được loại bỏ. Bước này được gọi là tiền xử lý (pre-processing).</p>
+]]></content>
+        </item>
+        
+    </channel>
+</rss>

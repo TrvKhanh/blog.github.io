@@ -2,12 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://khanhblog.id.vn/categories/</loc>
-  </url><url>
     <loc>https://khanhblog.id.vn/</loc>
+    <lastmod>2024-03-06T00:20:23+07:00</lastmod>
+  </url><url>
+    <loc>https://khanhblog.id.vn/posts/2024/03/linear-regression/</loc>
+    <lastmod>2024-03-06T00:20:23+07:00</lastmod>
+  </url><url>
+    <loc>https://khanhblog.id.vn/series/machine-learning/</loc>
+    <lastmod>2024-03-06T00:20:23+07:00</lastmod>
+  </url><url>
+    <loc>https://khanhblog.id.vn/tags/ml/</loc>
+    <lastmod>2024-03-06T00:20:23+07:00</lastmod>
+  </url><url>
+    <loc>https://khanhblog.id.vn/posts/</loc>
+    <lastmod>2024-03-06T00:20:23+07:00</lastmod>
   </url><url>
     <loc>https://khanhblog.id.vn/series/</loc>
+    <lastmod>2024-03-06T00:20:23+07:00</lastmod>
   </url><url>
     <loc>https://khanhblog.id.vn/tags/</loc>
+    <lastmod>2024-03-06T00:20:23+07:00</lastmod>
+  </url><url>
+    <loc>https://khanhblog.id.vn/about/</loc>
+    <lastmod>2024-03-06T00:18:33+07:00</lastmod>
+  </url><url>
+    <loc>https://khanhblog.id.vn/categories/</loc>
   </url>
 </urlset>
